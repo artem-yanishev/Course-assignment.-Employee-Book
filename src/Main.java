@@ -23,6 +23,7 @@ public class Main {
         printAllEmpByDepartment(1);
         printAllEmpWithSalLessThanNumber(15000);
         printAllEmpWithSalGreaterThanNumber(15000);
+        getAverageSalaryByDepartment(3);
     }
 
     public static void addEmployee(Employee employee) {
@@ -185,6 +186,7 @@ public class Main {
             average = Math.round(average * 100) / 100.0;
         } else {
             System.out.println("В отделе нет сотрудников");
+            return;
         }
         System.out.println("В отделе " + department + " средняя зарплата: " + average);
     }
