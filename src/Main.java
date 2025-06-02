@@ -180,7 +180,7 @@ public class Main {
                 countEmployees++;
             }
         }
-        double average = 0;
+        double average;
         if (countEmployees > 0) {
             average = sumSalary / countEmployees;
             average = Math.round(average * 100) / 100.0;
