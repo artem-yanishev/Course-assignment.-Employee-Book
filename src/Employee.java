@@ -5,8 +5,8 @@ public class Employee {
     private final String firstName;
     private final String patronymic;
     private int department;
-    private static final int MIN_DEPARTMENT = 1;
-    private static final int MAX_DEPARTMENT = 5;
+    public static final int MIN_DEPARTMENT = 1;
+    public static final int MAX_DEPARTMENT = 5;
     private double salary;
     private static int nextId = 1;
     private final int id;
@@ -16,8 +16,8 @@ public class Employee {
         this.lastName = lastName;
         this.firstName = firstName;
         this.patronymic = patronymic;
-        this.department = department;
-        this.salary = salary;
+        setDepartment(department);
+        setSalary(salary);
     }
 
     public String getLastName() {
@@ -82,5 +82,10 @@ public class Employee {
         return "Сотрудник " + "ID: " + id +
                 ", ФИО: " + lastName + " " + firstName + " " + patronymic +
                 ", Зарплата: " + salary;
+    }
+
+    public String toStringForRemove() {
+        return "Сотрудник " + "ID: " + id +
+                ", ФИО: " + lastName + " " + firstName + " " + patronymic;
     }
 }
