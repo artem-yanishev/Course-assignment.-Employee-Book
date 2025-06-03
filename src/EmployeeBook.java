@@ -1,8 +1,16 @@
+/**
+ * Класс для управления списком сотрудников
+ */
 public class EmployeeBook {
 
     private final Employee[] employees = new Employee[10];
     private int employeeCount = 0;
 
+    /**
+     * Добавляет сотрудника в книгу
+     * @param employee Сотрудник для добавления
+     * @return true если добавлен успешно, false если нет места
+     */
     public boolean addEmployee(Employee employee) {
         if (employee == null) {
             return false;
@@ -14,6 +22,10 @@ public class EmployeeBook {
         return false;
     }
 
+    /**
+     * Удаляет сотрудника по ID
+     * @param id ID сотрудника для удаления
+     */
     public void removeEmployee(int id) {
         if (employeeCount == 0) {
             System.out.println("Нет сотрудников!");
@@ -36,6 +48,9 @@ public class EmployeeBook {
         }
     }
 
+    /**
+     * Выводит список всех сотрудников
+     */
     public void printAllEmployees() {
         System.out.println("Список всех сотрудников: ");
         for (int i = 0; i < employeeCount; i++) {
@@ -51,10 +66,16 @@ public class EmployeeBook {
         return Math.round(totalSum * 100) / 100.0;
     }
 
+    /**
+     * Выводит сумму зарплат всех сотрудников
+     */
     public void printSumMonthSalaries() {
         System.out.println("Сумма затрат на ЗП в месяц: " + calcSumMonthSalaries());
     }
 
+    /**
+     * Находит и выводит сотрудника с минимальной зарплатой
+     */
     public void searchEmployeeMinSalary() {
         if (employeeCount == 0) {
             System.out.println("Нет сотрудников!");
@@ -71,6 +92,9 @@ public class EmployeeBook {
         System.out.println("Сотрудник с минимальной ЗП: " + employees[employeeIndex].toString());
     }
 
+    /**
+     * Находит и выводит сотрудника с максимальной зарплатой
+     */
     public void searchEmployeeMaxSalary() {
         if (employeeCount == 0) {
             System.out.println("Нет сотрудников!");
@@ -87,6 +111,9 @@ public class EmployeeBook {
         System.out.println("Сотрудник с максимальной ЗП: " + employees[employeeIndex].toString());
     }
 
+    /**
+     * Выводит среднюю зарплату
+     */
     public void calcAverageValueSalary() {
         if (employeeCount == 0) {
             System.out.println("Нет сотрудников для расчета средней ЗП.");
@@ -98,6 +125,9 @@ public class EmployeeBook {
         System.out.println("Среднее значение ЗП: " + result);
     }
 
+    /**
+     * Выводит ФИО всех сотрудников
+     */
     public void printFullNameAllEmployees() {
         System.out.println("ФИО Всех сотрудников:");
         for (int i = 0; i < employeeCount; i++) {
@@ -106,6 +136,11 @@ public class EmployeeBook {
         }
     }
 
+    /**
+     * Индексирует зарплаты всех сотрудников
+     * @param percent Процент индексации
+     * @throws IllegalArgumentException если процент ≤ 0
+     */
     public void conductSalaryIndexation(double percent) {
         if (percent <= 0) {
             throw new IllegalArgumentException("Процент индексации должен быть положительным");
@@ -120,6 +155,11 @@ public class EmployeeBook {
         System.out.printf("Зарплаты проиндексированы на %.2f%%\n", percent);
     }
 
+    /**
+     * Находит сотрудника с минимальной зарплатой в отделе
+     * @param department Номер отдела
+     * @return Сотрудник или null если отдел пуст
+     */
     public Employee findMinSalaryInDepartment(int department) {
         Employee minEmp = null;
         for (int i = 0; i < employeeCount; i++) {
@@ -133,6 +173,10 @@ public class EmployeeBook {
         return minEmp;
     }
 
+    /**
+     * Выводит сотрудника с минимальной зарплатой в отделе
+     * @param department Номер отдела
+     */
     public void printMinSalaryEmpInDept(int department) {
         Employee emp = findMinSalaryInDepartment(department);
         if (emp != null) {
@@ -142,6 +186,11 @@ public class EmployeeBook {
         }
     }
 
+    /**
+     * Находит сотрудника с максимальной зарплатой в отделе
+     * @param department Номер отдела
+     * @return Сотрудник или null если отдел пуст
+     */
     public Employee findMaxSalaryInDepartment(int department) {
         Employee maxEmp = null;
         for (int i = 0; i < employeeCount; i++) {
@@ -155,6 +204,10 @@ public class EmployeeBook {
         return maxEmp;
     }
 
+    /**
+     * Выводит сотрудника с максимальной зарплатой в отделе
+     * @param department Номер отдела
+     */
     public void printMaxSalaryEmpInDept(int department) {
         Employee emp = findMaxSalaryInDepartment(department);
         if (emp != null) {
@@ -164,6 +217,10 @@ public class EmployeeBook {
         }
     }
 
+    /**
+     * Выводит сумму зарплат по отделу
+     * @param department Номер отдела
+     */
     public void calcSumMonthSalariesInDept(int department) {
         double totalSum = 0;
         for (int i = 0; i < employeeCount; i++) {
@@ -176,6 +233,10 @@ public class EmployeeBook {
         System.out.println("Сумма затрат на ЗП в месяц по отделу " + department + ": " + totalSum);
     }
 
+    /**
+     * Выводит среднюю зарплату по отделу
+     * @param department Номер отдела
+     */
     public void getAverageSalaryByDepartment(int department) {
         double sumSalary = 0;
         int countEmployees = 0;
@@ -196,6 +257,12 @@ public class EmployeeBook {
         System.out.println("В отделе " + department + " средняя зарплата: " + average);
     }
 
+    /**
+     * Индексирует зарплаты в отделе
+     * @param department Номер отдела
+     * @param percent Процент индексации
+     * @throws IllegalArgumentException если процент ≤ 0
+     */
     public void conductSalaryIndexationByDepartment(int department, double percent) {
         if (percent <= 0) {
             throw new IllegalArgumentException("Процент индексации должен быть положительным");
@@ -216,6 +283,11 @@ public class EmployeeBook {
         }
     }
 
+
+    /**
+     * Выводит сотрудников отдела (без номера отдела)
+     * @param department Номер отдела
+     */
     public void printAllEmpByDepartment(int department) {
         System.out.println("Сотрудники отдела " + department + ":");
         for (int i = 0; i < employeeCount; i++) {
@@ -225,6 +297,10 @@ public class EmployeeBook {
         }
     }
 
+    /**
+     * Выводит сотрудников с зарплатой меньше указанной
+     * @param number Пороговое значение зарплаты
+     */
     public void printAllEmpWithSalLessThanNumber(int number) {
         System.out.println("Сотрудники с Зарплатой меньше " + number + ":");
         for (int i = 0; i < employeeCount; i++) {
@@ -234,6 +310,10 @@ public class EmployeeBook {
         }
     }
 
+    /**
+     * Выводит сотрудников с зарплатой больше или равной указанной
+     * @param number Пороговое значение зарплаты
+     */
     public void printAllEmpWithSalGreaterThanNumber(int number) {
         System.out.println("Сотрудники с Зарплатой больше " + number + ":");
         for (int i = 0; i < employeeCount; i++) {
@@ -243,6 +323,11 @@ public class EmployeeBook {
         }
     }
 
+
+    /**
+     * Выводит сотрудника по ID
+     * @param id ID сотрудника
+     */
     public void printEmpById(int id) {
         for (int i = 0; i < employeeCount; i++) {
             if (employees[i].getId() == id) {

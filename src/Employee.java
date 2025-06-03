@@ -1,16 +1,36 @@
 import java.util.Objects;
 
+/**
+ * Класс для хранения информации о сотруднике
+ */
 public class Employee {
     private final String lastName;
     private final String firstName;
     private final String patronymic;
     private int department;
+
+    /**
+     * Минимально допустимый номер отдела
+     */
     public static final int MIN_DEPARTMENT = 1;
+
+    /**
+     * Максимально допустимый номер отдела
+     */
     public static final int MAX_DEPARTMENT = 5;
     private double salary;
     private static int nextId = 1;
     private final int id;
 
+    /**
+     * Конструктор сотрудника
+     * @param lastName Фамилия
+     * @param firstName Имя
+     * @param patronymic Отчество
+     * @param department Номер отдела (1-5)
+     * @param salary Зарплата
+     * @throws IllegalArgumentException если отдел или зарплата некорректны
+     */
     public Employee(String lastName, String firstName, String patronymic, int department, double salary) {
         this.id = nextId++;
         this.lastName = lastName;
@@ -44,6 +64,11 @@ public class Employee {
         return id;
     }
 
+    /**
+     * Устанавливает зарплату
+     * @param salary Новая зарплата
+     * @throws IllegalArgumentException если зарплата отрицательная
+     */
     public void setSalary(double salary) {
         if (salary < 0) {
             throw new IllegalArgumentException("Зарплата не может быть отрицательной");
@@ -51,6 +76,11 @@ public class Employee {
         this.salary = salary;
     }
 
+    /**
+     * Устанавливает отдел
+     * @param department Номер отдела
+     * @throws IllegalArgumentException если номер отдела не в диапазоне 1-5
+     */
     public void setDepartment(int department) {
         if (department < MIN_DEPARTMENT || department > MAX_DEPARTMENT) {
             throw new IllegalArgumentException("Отдел должен быть от 1 до 5");
