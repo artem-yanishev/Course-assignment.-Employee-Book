@@ -24,11 +24,12 @@ public class Employee {
 
     /**
      * Конструктор сотрудника
-     * @param lastName Фамилия
-     * @param firstName Имя
+     *
+     * @param lastName   Фамилия
+     * @param firstName  Имя
      * @param patronymic Отчество
      * @param department Номер отдела (1-5)
-     * @param salary Зарплата
+     * @param salary     Зарплата
      * @throws IllegalArgumentException если отдел или зарплата некорректны
      */
     public Employee(String lastName, String firstName, String patronymic, int department, double salary) {
@@ -36,8 +37,30 @@ public class Employee {
         this.lastName = lastName;
         this.firstName = firstName;
         this.patronymic = patronymic;
-        setDepartment(department);
-        setSalary(salary);
+        validateDepartment(department);
+        validateSalary(salary);
+        this.department = department;
+        this.salary = salary;
+    }
+
+    /**
+     * Проверяет отдел
+     * @param department Переменная с отделом
+     */
+    private void validateDepartment(int department) {
+        if (department < MIN_DEPARTMENT || department > MAX_DEPARTMENT) {
+            throw new IllegalArgumentException("Отдел должен быть от 1 до 5");
+        }
+    }
+
+    /**
+     * Проверяет зарплату
+     * @param salary Переменная с зарплатой
+     */
+    private void validateSalary(double salary) {
+        if (salary < 0) {
+            throw new IllegalArgumentException("Зарплата не может быть отрицательной");
+        }
     }
 
     public String getLastName() {
@@ -67,24 +90,18 @@ public class Employee {
     /**
      * Устанавливает зарплату
      * @param salary Новая зарплата
-     * @throws IllegalArgumentException если зарплата отрицательная
      */
     public void setSalary(double salary) {
-        if (salary < 0) {
-            throw new IllegalArgumentException("Зарплата не может быть отрицательной");
-        }
+        validateSalary(salary);
         this.salary = salary;
     }
 
     /**
      * Устанавливает отдел
      * @param department Номер отдела
-     * @throws IllegalArgumentException если номер отдела не в диапазоне 1-5
      */
     public void setDepartment(int department) {
-        if (department < MIN_DEPARTMENT || department > MAX_DEPARTMENT) {
-            throw new IllegalArgumentException("Отдел должен быть от 1 до 5");
-        }
+        validateDepartment(department);
         this.department = department;
     }
 

@@ -8,14 +8,12 @@ public class EmployeeBook {
 
     /**
      * Добавляет сотрудника в книгу
+     *
      * @param employee Сотрудник для добавления
      * @return true если добавлен успешно, false если нет места
      */
     public boolean addEmployee(Employee employee) {
-        if (employee == null) {
-            return false;
-        }
-        if (employeeCount < employees.length) {
+        if (employee != null && employeeCount < employees.length) {
             employees[employeeCount++] = employee;
             return true;
         }
@@ -24,6 +22,7 @@ public class EmployeeBook {
 
     /**
      * Удаляет сотрудника по ID
+     *
      * @param id ID сотрудника для удаления
      */
     public void removeEmployee(int id) {
@@ -31,7 +30,6 @@ public class EmployeeBook {
             System.out.println("Нет сотрудников!");
             return;
         }
-        boolean found = false;
         for (int i = 0; i < employeeCount; i++) {
             if (employees[i].getId() == id) {
                 String employeeInfo = employees[i].toStringForRemove();
@@ -39,13 +37,10 @@ public class EmployeeBook {
                 employees[employeeCount - 1] = null;
                 employeeCount--;
                 System.out.println(employeeInfo + " - удалён!");
-                found = true;
-                break;
+                return;
             }
         }
-        if (!found) {
-            System.out.println("Сотрудник c ID: " + id + " - не найден.");
-        }
+        System.out.println("Сотрудник c ID: " + id + " - не найден.");
     }
 
     /**
@@ -63,6 +58,7 @@ public class EmployeeBook {
         for (int i = 0; i < employeeCount; i++) {
             totalSum += employees[i].getSalary();
         }
+        // Округляем сумму до 2 знаков (копеек)
         return Math.round(totalSum * 100) / 100.0;
     }
 
@@ -81,15 +77,16 @@ public class EmployeeBook {
             System.out.println("Нет сотрудников!");
             return;
         }
-        double minSalary = employees[0].getSalary();
-        int employeeIndex = 0;
+
+        Employee minSalaryEmployee = employees[0];
+
         for (int i = 1; i < employeeCount; i++) {
-            if (employees[i].getSalary() < minSalary) {
-                minSalary = employees[i].getSalary();
-                employeeIndex = i;
+            if (employees[i].getSalary() < minSalaryEmployee.getSalary()) {
+                minSalaryEmployee = employees[i];
             }
         }
-        System.out.println("Сотрудник с минимальной ЗП: " + employees[employeeIndex].toString());
+
+        System.out.println("Сотрудник с минимальной ЗП: " + minSalaryEmployee);
     }
 
     /**
@@ -100,15 +97,16 @@ public class EmployeeBook {
             System.out.println("Нет сотрудников!");
             return;
         }
-        double maxSalary = employees[0].getSalary();
-        int employeeIndex = 0;
+
+        Employee maxSalaryEmployee = employees[0];
+
         for (int i = 1; i < employeeCount; i++) {
-            if (employees[i].getSalary() > maxSalary) {
-                maxSalary = employees[i].getSalary();
-                employeeIndex = i;
+            if (employees[i].getSalary() > maxSalaryEmployee.getSalary()) {
+                maxSalaryEmployee = employees[i];
             }
         }
-        System.out.println("Сотрудник с максимальной ЗП: " + employees[employeeIndex].toString());
+
+        System.out.println("Сотрудник с максимальной ЗП: " + maxSalaryEmployee);
     }
 
     /**
@@ -138,25 +136,26 @@ public class EmployeeBook {
 
     /**
      * Индексирует зарплаты всех сотрудников
+     *
      * @param percent Процент индексации
      * @throws IllegalArgumentException если процент ≤ 0
      */
     public void conductSalaryIndexation(double percent) {
         if (percent <= 0) {
-            throw new IllegalArgumentException("Процент индексации должен быть положительным");
+            System.out.println("Процент индексации должен быть положительным");
+            return;
         }
         double indexationFactor = 1 + percent / 100.0;
         for (int i = 0; i < employeeCount; i++) {
-            double currentSalary = employees[i].getSalary();
-            double newSalary = currentSalary * indexationFactor;
-            newSalary = Math.round(newSalary * 100) / 100.0;
-            employees[i].setSalary(newSalary);
+            double newSalary = employees[i].getSalary() * indexationFactor;
+            employees[i].setSalary(Math.round(newSalary * 100) / 100.0);
         }
         System.out.printf("Зарплаты проиндексированы на %.2f%%\n", percent);
     }
 
     /**
      * Находит сотрудника с минимальной зарплатой в отделе
+     *
      * @param department Номер отдела
      * @return Сотрудник или null если отдел пуст
      */
@@ -175,6 +174,7 @@ public class EmployeeBook {
 
     /**
      * Выводит сотрудника с минимальной зарплатой в отделе
+     *
      * @param department Номер отдела
      */
     public void printMinSalaryEmpInDept(int department) {
@@ -188,6 +188,7 @@ public class EmployeeBook {
 
     /**
      * Находит сотрудника с максимальной зарплатой в отделе
+     *
      * @param department Номер отдела
      * @return Сотрудник или null если отдел пуст
      */
@@ -206,6 +207,7 @@ public class EmployeeBook {
 
     /**
      * Выводит сотрудника с максимальной зарплатой в отделе
+     *
      * @param department Номер отдела
      */
     public void printMaxSalaryEmpInDept(int department) {
@@ -219,6 +221,7 @@ public class EmployeeBook {
 
     /**
      * Выводит сумму зарплат по отделу
+     *
      * @param department Номер отдела
      */
     public void calcSumMonthSalariesInDept(int department) {
@@ -235,6 +238,7 @@ public class EmployeeBook {
 
     /**
      * Выводит среднюю зарплату по отделу
+     *
      * @param department Номер отдела
      */
     public void getAverageSalaryByDepartment(int department) {
@@ -246,26 +250,25 @@ public class EmployeeBook {
                 countEmployees++;
             }
         }
-        double average;
-        if (countEmployees > 0) {
-            average = sumSalary / countEmployees;
-            average = Math.round(average * 100) / 100.0;
-        } else {
+        if (countEmployees == 0) {
             System.out.println("В отделе нет сотрудников");
             return;
         }
+        double average = Math.round((sumSalary / countEmployees) * 100) / 100.0;
         System.out.println("В отделе " + department + " средняя зарплата: " + average);
     }
 
     /**
      * Индексирует зарплаты в отделе
+     *
      * @param department Номер отдела
-     * @param percent Процент индексации
+     * @param percent    Процент индексации
      * @throws IllegalArgumentException если процент ≤ 0
      */
     public void conductSalaryIndexationByDepartment(int department, double percent) {
         if (percent <= 0) {
-            throw new IllegalArgumentException("Процент индексации должен быть положительным");
+            System.out.println("Процент индексации должен быть положительным");
+            return;
         }
         boolean departmentExists = false;
         double indexationFactor = 1 + percent / 100.0;
@@ -286,6 +289,7 @@ public class EmployeeBook {
 
     /**
      * Выводит сотрудников отдела (без номера отдела)
+     *
      * @param department Номер отдела
      */
     public void printAllEmpByDepartment(int department) {
@@ -299,6 +303,7 @@ public class EmployeeBook {
 
     /**
      * Выводит сотрудников с зарплатой меньше указанной
+     *
      * @param number Пороговое значение зарплаты
      */
     public void printAllEmpWithSalLessThanNumber(int number) {
@@ -312,6 +317,7 @@ public class EmployeeBook {
 
     /**
      * Выводит сотрудников с зарплатой больше или равной указанной
+     *
      * @param number Пороговое значение зарплаты
      */
     public void printAllEmpWithSalGreaterThanNumber(int number) {
@@ -326,6 +332,7 @@ public class EmployeeBook {
 
     /**
      * Выводит сотрудника по ID
+     *
      * @param id ID сотрудника
      */
     public void printEmpById(int id) {
